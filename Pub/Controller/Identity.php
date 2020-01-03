@@ -3,8 +3,9 @@
 namespace Kieran\Identity\Pub\Controller;
 
 use XF\Mvc\ParameterBag;
+use \XF\Pub\Controller\AbstractController;
 
-class Identity extends \XF\Pub\Controller\AbstractController
+class Identity extends AbstractController
 {
 	public function actionIndex(ParameterBag $params)
 	{
