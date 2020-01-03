@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<routes>
+  <route route_type="public" route_prefix="identities" format=":int&lt;identity_id&gt;" controller="Kieran\Identity:Identity" context="identities"/>
+  <route route_type="public" route_prefix="identities" sub_name="add" format="add/:str&lt;identity_type_id&gt;" controller="Kieran\Identity:Identity" action_prefix="Add"/>
+</routes>

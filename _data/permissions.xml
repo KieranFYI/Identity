@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+  <permission permission_group_id="identities" permission_id="add" permission_type="flag" interface_group_id="kieran_identities" display_order="1"/>
+  <permission permission_group_id="identities" permission_id="delete" permission_type="flag" interface_group_id="kieran_identities" display_order="4"/>
+  <permission permission_group_id="identities" permission_id="hard_delete" permission_type="flag" depend_permission_id="delete" interface_group_id="kieran_identities" display_order="5"/>
+  <permission permission_group_id="identities" permission_id="view" permission_type="flag" interface_group_id="kieran_identities" display_order="3"/>
+</permissions>

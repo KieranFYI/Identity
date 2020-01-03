@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="public" title="kieran_identity" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('kieran_identities') }}</xf:title>
+<xf:description>Your identities associated to your forum account.</xf:description>
+<xf:pageaction>
+	<xf:button href="{{ link('identities/add') }}" class="button--cta" icon="write" data-xf-click="overlay">
+		{{ phrase('kieran_identity_add') }}
+	</xf:button>
+</xf:pageaction>
+
+<xf:if is="$notice_message">
+	<div class="blockMessage blockMessage--{$notice_type} blockMessage--iconic">
+		{{ phrase('$notice_message') }}
+	</div>
+</xf:if>
+
+<xf:if is="$xf.visitor.user_id">
+	<xf:macro template="kieran_identity_macro" name="list"
+			  arg-types="{$types}"
+			  arg-identities="{$identities}"
+			  arg-hidedelete="1" />
+<xf:else />
+	<div class="block">
+		<div class="block-container">
+			<div class="block-body">
+				<xf:datalist data-xf-init="responsive-data-list">
+					<xf:datarow rowclass="dataList-row--noHover">
+						<xf:cell class="dataList-cell--min dataList-cell--alt">
+							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+						</xf:cell>
+						<xf:main colspan="3" label="You must log into your account to view your identities." />
+					</xf:datarow>
+				</xf:datalist>
+			</div>
+		</div>
+	</div>
+</xf:if>]]></template>
+  <template type="public" title="kieran_identity_add" version_id="1000030" version_string="1.0.0 Beta"><![CDATA[<xf:title>{{ phrase('kieran_identity_add_title') }}</xf:title>
+<xf:breadcrumb href="{{ link('identity') }}">{{ phrase('kieran_identities') }}</xf:breadcrumb>
+<xf:form action="{{ link('identities/add') }}">
+	<div class="menu-row menu-row--separated">
+		<div class="inputGroup u-inputSpacer">
+			<xf:select name="identity_type_id">
+				<xf:option value="">{{ phrase('kieran_support_please_select') }}</xf:option>
+				<xf:foreach loop="$types" value="$type">	
+					<xf:option value="{$type.identity_type_id}">{{ $type.identity_type }}</xf:option>
+				</xf:foreach>
+			</xf:select>
+		</div>
+	</div>
+	<div class="menu-footer">
+		<span class="menu-footer-controls">
+			<xf:button type="submit" class="button--primary">{{ phrase('kieran_identity_add') }}</xf:button>
+		</span>
+	</div>
+</xf:form>]]></template>
+  <template type="public" title="kieran_identity_delete" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[<xf:title>Delete identity</xf:title>
+
+<xf:form action="{{ link('identities/delete', $identity) }}" class="block" ajax="true">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:if is="$identity.status == '2'">
+				<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="0" />
+			<xf:else />
+				<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="{$identity.canDelete('hard')}" />
+			</xf:if>
+		</div>
+		<xf:submitrow icon="delete" />
+	</div>
+</xf:form>]]></template>
+  <template type="public" title="kieran_identity_delete_self" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>Delete identity</xf:title>
+
+<xf:form action="{{ link('identity/delete', $identity) }}" class="block" ajax="true">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="0" />
+		</div>
+		<xf:submitrow icon="delete" />
+	</div>
+</xf:form>]]></template>
+  <template type="public" title="kieran_identity_list" version_id="1000030" version_string="1.0.0 Beta"><![CDATA[<xf:title>{{ phrase('kieran_identities') }}: {$identity_type}</xf:title>
+<xf:description>List of all {$identity_type} identities.</xf:description>
+
+<xf:breadcrumb href="{{ link('identities') }}">{{ phrase('kieran_identities') }}</xf:breadcrumb>
+
+<xf:macro template="kieran_identity_macro" name="list"
+		  arg-types="{$types}"
+		  arg-identities="{$identities}"
+		  arg-delete="{{ true }}"
+		  arg-user_id="{$user_id}"/>]]></template>
+  <template type="public" title="kieran_identity_macro" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="list"
+		  arg-types=""
+		  arg-identities=""
+		  arg-delete="{{ false }}"
+		  arg-user_id="{{ $xf.visitor.user_id }}">
+	<xf:if is="$types is not empty">
+		<xf:foreach loop="$types" value="$type">
+			<div class="block">
+				<div class="block-container">
+					<div class="block-body">
+						<xf:datalist data-xf-init="responsive-data-list">
+
+							<xf:set var="$identities" value="{$type.getIdentitiesForUser($user_id)}" />
+							<xf:if is="$identities is not empty">
+
+								<xf:datarow rowtype="subsection">
+									<xf:cell class="dataList-textRow" colspan="5">
+										{$type.identity_type} identities
+									</xf:cell>
+								</xf:datarow>
+								<xf:foreach loop="$identities" value="$identity">
+									<xf:datarow rowclass="dataList-row">
+										<xf:cell class="dataList-cell--min dataList-cell--alt">
+											<i class="fa fa-info-circle fa-fw fa-2x" aria-hidden="true"></i>
+										</xf:cell>
+
+										<xf:main hint="{$identity.identity_value}"
+												 label="{{$identity.identity_name}}"/>
+
+										<xf:cell class="contentRow-minor">
+											<xf:date time="{$identity.date}" class="fa-pull-right" />
+										</xf:cell>
+
+										<xf:cell class="contentRow-minor">
+											<xf:if is="$identity.status == 0">
+												<xf:button class="button fa-pull-right" href="{{ link('identities/toggle', $identity) }}">Enable</xf:button>
+											</xf:if>
+										</xf:cell>
+										<xf:if is="$delete AND $identity.canDelete('soft')">
+											<xf:delete href="{{ link('identities/delete', $identity) }}" />
+										</xf:if>
+									</xf:datarow>
+								</xf:foreach>
+								<xf:else />
+								<xf:datarow rowtype="subsection">
+									<xf:cell class="dataList-textRow" colspan="5">
+										{$type.identity_type} identities
+									</xf:cell>
+								</xf:datarow>
+								<xf:datarow rowclass="dataList-row--noHover">
+									<xf:cell class="dataList-cell--min dataList-cell--alt">
+										<i class="fa fa-info-circle" aria-hidden="true"></i>
+									</xf:cell>
+									<xf:main label="There are no {$identity.Type.identity_type} identities." />
+								</xf:datarow>
+							</xf:if>
+						</xf:datalist>
+					</div>
+				</div>
+			</div>
+		</xf:foreach>
+	</xf:if>
+</xf:macro>]]></template>
+</templates>

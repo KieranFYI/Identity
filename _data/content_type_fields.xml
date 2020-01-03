@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content_type_fields>
+  <field content_type="identity" field_name="entity">Kieran\Identity:Identity</field>
+</content_type_fields>

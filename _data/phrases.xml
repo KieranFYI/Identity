@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="cron_entry.kieran_identity_update" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[[Kieran] Identity: Update identities]]></phrase>
+  <phrase title="kieran_identities" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Identities]]></phrase>
+  <phrase title="kieran_identity_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add identity]]></phrase>
+  <phrase title="kieran_identity_add_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add an identity for...]]></phrase>
+  <phrase title="kieran_identity_message_error_alreadyexists" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Don't be a silly goose, this account is already in your identities.]]></phrase>
+  <phrase title="kieran_identity_message_error_alreadytaken" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Oh sugar, it looks like another user has already associated that account to their forum account.]]></phrase>
+  <phrase title="kieran_identity_message_error_validate" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[Unfortunately this service failed to communicate with {0}, please try again later.]]></phrase>
+  <phrase title="kieran_identity_message_success_added" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[You have successfully added your identity.]]></phrase>
+  <phrase title="kieran_support_please_select" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[Please select an identity type]]></phrase>
+  <phrase title="option_group.identity" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[Identity Integration]]></phrase>
+  <phrase title="option_group_description.identity" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="permission.identities_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add identities for others]]></phrase>
+  <phrase title="permission.identities_delete" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Delete identities]]></phrase>
+  <phrase title="permission.identities_hard_delete" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[Hard delete identities]]></phrase>
+  <phrase title="permission.identities_view" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[View others identities]]></phrase>
+  <phrase title="permission_interface.kieran_identities" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Identities permissions]]></phrase>
+</phrases>
