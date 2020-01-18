@@ -10,6 +10,11 @@ class Account extends AbstractController
 
 	public function actionIdentities(ParameterBag $params)
 	{
+        
+		if (!\XF::visitor()->Auth->getAuthenticationHandler())
+		{
+			return $this->noPermission();
+		}
 
 		$types = $this->getIdentityTypeRepo()->getIdentityTypes();
 
