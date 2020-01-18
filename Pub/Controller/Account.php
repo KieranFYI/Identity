@@ -30,4 +30,9 @@ class Account extends AbstractController
 		return $this->repository('Kieran\Identity:IdentityType');
 	}
 
+	public static function getActivityDetails(array $activities)
+	{
+		return \XF::phrase('managing_account_details');
+	}
+
 }

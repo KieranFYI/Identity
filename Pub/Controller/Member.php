@@ -35,4 +35,61 @@ class Member extends \XF\Pub\Controller\AbstractController
 		return $this->repository('Kieran\Identity:IdentityType');
 	}
 
+	public static function getActivityDetails(array $activities)
+	{
+		$userIds = [];
+		$userData = [];
+
+		$router = \XF::app()->router('public');
+		$defaultPhrase = \XF::phrase('viewing_members');
+
+		if (!\XF::visitor()->hasPermission('general', 'viewProfile'))
+		{
+			return $defaultPhrase;
+		}
+
+		foreach ($activities AS $activity)
+		{
+			$userId = $activity->pluckParam('user_id');
+			if ($userId)
+			{
+				$userIds[$userId] = $userId;
+			}
+		}
+
+		if ($userIds)
+		{
+			$users = \XF::em()->findByIds('XF:User', $userIds, 'Privacy');
+			foreach ($users AS $user)
+			{
+				$userData[$user->user_id] = [
+					'username' => $user->username,
+					'url' => $router->buildLink('members', $user),
+				];
+			}
+		}
+
+		$output = [];
+
+		foreach ($activities AS $key => $activity)
+		{
+			$userId = $activity->pluckParam('user_id');
+			$user = $userId && isset($userData[$userId]) ? $userData[$userId] : null;
+			if ($user)
+			{
+				$output[$key] = [
+					'description' => \XF::phrase('viewing_member_profile'),
+					'title' => $user['username'],
+					'url' => $user['url']
+				];
+			}
+			else
+			{
+				$output[$key] = $defaultPhrase;
+			}
+		}
+
+		return $output;
+	}
+
 }
