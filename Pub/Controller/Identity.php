@@ -9,14 +9,7 @@ class Identity extends AbstractController
 {
 	public function actionIndex(ParameterBag $params)
 	{
-
-		$types = $this->getIdentityTypeRepo()->getIdentityTypes();
-
-		$viewParams = [
-			'types' => $types,
-		];
-
-		return $this->view('Kieran\Identity:Identity\View', 'kieran_identity', $viewParams);
+        return $this->redirect($this->router()->buildLink('account/identities'));
 	}
 
 	public function actionLogs(ParameterBag $params)
@@ -35,7 +28,6 @@ class Identity extends AbstractController
 			throw $this->exception($this->notFound(\XF::phrase('kieran_identity_logs_not_supported')));
 		}
 	}
-
 	
 	public function actionToggle(ParameterBag $params)
 	{	
@@ -52,7 +44,6 @@ class Identity extends AbstractController
 			$i->status = $i->identity_id == $identity->identity_id;
 			$i->save();
 		}
-
 		
 		$repo = $this->repository($identity->Type->identity_controller);
 		if (method_exists($repo, 'actionSave')) {
@@ -61,7 +52,7 @@ class Identity extends AbstractController
 		if ($identity->user_id != \XF::visitor()->user_id) {
 			return $this->redirect($this->router()->buildLink('/members/' . $identity->user_id . '/#identities'));
 		} else {
-			return $this->redirect($this->router()->buildLink('identities'));
+			return $this->redirect($this->router()->buildLink('account/identities'));
 		}
 	}
 

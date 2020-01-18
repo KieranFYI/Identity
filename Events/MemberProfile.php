@@ -46,11 +46,13 @@ class MemberProfile {
 	public static function routeMatch(\XF\Mvc\Dispatcher $dispatcher, \XF\Mvc\RouteMatch &$match) {
 
 		if ($match->getController() == 'XF:Member') {
+			if ($match->getAction() == 'identities' || $match->getAction() == 'identities/delete') {
+				$match->setController('Kieran\Identity:Member');
+            }
+		} else if ($match->getController() == 'XF:Account') {
 			if ($match->getAction() == 'identities') {
-				$match->setController('Kieran\Identity:Member');
-			} elseif ($match->getAction() == 'identities/delete') {
-				$match->setController('Kieran\Identity:Member');
-			}
+				$match->setController('Kieran\Identity:Account');
+            }
 		}
 	}
 
