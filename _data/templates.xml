@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-  <template type="public" title="kieran_identity" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('kieran_identities') }}</xf:title>
+  <template type="public" title="kieran_identity" version_id="1000030" version_string="1.0.0 Beta"><![CDATA[<xf:title>{{ phrase('kieran_identities') }}</xf:title>
 <xf:description>Your identities associated to your forum account.</xf:description>
+
+<xf:wrap template="account_wrapper">
+	<xf:set var="$pageSelected" value="identities" />
+</xf:wrap>
+
 <xf:pageaction>
 	<xf:button href="{{ link('identities/add') }}" class="button--cta" icon="write" data-xf-click="overlay">
 		{{ phrase('kieran_identity_add') }}
@@ -37,38 +42,55 @@
 </xf:if>]]></template>
   <template type="public" title="kieran_identity_add" version_id="1000030" version_string="1.0.0 Beta"><![CDATA[<xf:title>{{ phrase('kieran_identity_add_title') }}</xf:title>
 <xf:breadcrumb href="{{ link('identity') }}">{{ phrase('kieran_identities') }}</xf:breadcrumb>
+
+<xf:wrap template="account_wrapper">
+	<xf:set var="$pageSelected" value="identities" />
+</xf:wrap>
+
 <xf:form action="{{ link('identities/add') }}">
-	<div class="menu-row menu-row--separated">
-		<div class="inputGroup u-inputSpacer">
-			<xf:select name="identity_type_id">
-				<xf:option value="">{{ phrase('kieran_support_please_select') }}</xf:option>
-				<xf:foreach loop="$types" value="$type">	
-					<xf:option value="{$type.identity_type_id}">{{ $type.identity_type }}</xf:option>
-				</xf:foreach>
-			</xf:select>
+	<div class="block-container">
+		<div class="block-body">
+			<div class="menu-row menu-row--separated">
+				<div class="inputGroup u-inputSpacer">
+					<xf:select name="identity_type_id">
+						<xf:option value="">{{ phrase('kieran_support_please_select') }}</xf:option>
+						<xf:foreach loop="$types" value="$type">	
+							<xf:option value="{$type.identity_type_id}">{{ $type.identity_type }}</xf:option>
+						</xf:foreach>
+					</xf:select>
+				</div>
+			</div>
+			<div class="menu-footer">
+				<span class="menu-footer-controls">
+					<xf:button type="submit" class="button--primary">{{ phrase('kieran_identity_add') }}</xf:button>
+				</span>
+			</div>
 		</div>
 	</div>
-	<div class="menu-footer">
-		<span class="menu-footer-controls">
-			<xf:button type="submit" class="button--primary">{{ phrase('kieran_identity_add') }}</xf:button>
-		</span>
-	</div>
 </xf:form>]]></template>
-  <template type="public" title="kieran_identity_delete" version_id="1000000" version_string="1.0.0 Alpha"><![CDATA[<xf:title>Delete identity</xf:title>
+  <template type="public" title="kieran_identity_delete" version_id="1000030" version_string="1.0.0 Beta"><![CDATA[<xf:title>Delete identity</xf:title>
 
 <xf:form action="{{ link('identities/delete', $identity) }}" class="block" ajax="true">
 	<div class="block-container">
 		<div class="block-body">
-			<xf:if is="$identity.status == '2'">
-				<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="0" />
-			<xf:else />
-				<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="{$identity.canDelete('hard')}" />
-			</xf:if>
+			<div class="block-container">
+				<div class="block-body">
+					<xf:if is="$identity.status == '2'">
+						<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="0" />
+						<xf:else />
+						<xf:macro template="helper_action" name="delete_type" arg-canHardDelete="{$identity.canDelete('hard')}" />
+					</xf:if>
+				</div>
+				<xf:submitrow icon="delete" />
+			</div>
 		</div>
-		<xf:submitrow icon="delete" />
 	</div>
 </xf:form>]]></template>
-  <template type="public" title="kieran_identity_delete_self" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>Delete identity</xf:title>
+  <template type="public" title="kieran_identity_delete_self" version_id="1000030" version_string="1.0.0 Beta"><![CDATA[<xf:title>Delete identity</xf:title>
+
+<xf:wrap template="account_wrapper">
+	<xf:set var="$pageSelected" value="identities" />
+</xf:wrap>
 
 <xf:form action="{{ link('identity/delete', $identity) }}" class="block" ajax="true">
 	<div class="block-container">

@@ -35,7 +35,7 @@ class Setup extends \XF\AddOn\AbstractSetup
             $table->addColumn('date', 'int');
             $table->addColumn('last_update', 'int');
             $table->addPrimaryKey('identity_id');
-            $table->addUniqueKey(['identity_type_id', 'identity_value'], 'identity_type_identity_value');
+            $table->addUniqueKey(['identity_type_id', 'identity_value', 'user_id'], 'identity_type_identity_value_user_id');
         });
         $this->schemaManager()->createTable('xf_kieran_identity_log', function(Create $table)
         {

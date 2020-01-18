@@ -82,7 +82,7 @@ class Identity extends AbstractController
 				$identity->save();
 			}
 		
-			return $this->redirect($this->router()->buildLink('members/identities', $type), \XF::phrase('kieran_identity_deleted'));
+			return $this->redirect($this->router()->buildLink('members/#identities', $identity->User), \XF::phrase('kieran_identity_deleted'));
 		}
 		else
 		{

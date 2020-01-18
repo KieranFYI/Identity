@@ -42,13 +42,17 @@ class Identity extends Repository
             ->fetchOne();
 	}
 
-	public function findIdentityByValueByType($identity_value, $identity_type_id)
+	public function findIdentityByValueByType($identity_value, $identity_type_id, $ignoreDeleted=true)
 	{
-		return $this->finder('Kieran\Identity:Identity')
+		$finder = $this->finder('Kieran\Identity:Identity')
             ->where('identity_value', $identity_value)
-            ->where('identity_type_id', '=', $identity_type_id)
-			->where('status', '!=', 2)
-            ->fetchOne();
+            ->where('identity_type_id', '=', $identity_type_id);
+
+		if ($ignoreDeleted) {
+            $finder = $finder->where('status', '!=', 2);
+        }
+
+        return $finder->fetchOne();
 	}
 	
 	/* Find identities by user_id and identity_type */
