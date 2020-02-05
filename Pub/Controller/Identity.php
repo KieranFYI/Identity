@@ -45,10 +45,6 @@ class Identity extends AbstractController
 			$i->save();
 		}
 		
-		$repo = $this->repository($identity->Type->identity_controller);
-		if (method_exists($repo, 'actionSave')) {
-			$repo->actionSave($identity->User, $identity->Type->getIdentitiesForUser($identity->user_id));
-		}
 		if ($identity->user_id != \XF::visitor()->user_id) {
 			return $this->redirect($this->router()->buildLink('/members/' . $identity->user_id . '/#identities'));
 		} else {
