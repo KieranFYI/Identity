@@ -37,7 +37,7 @@ class Identity extends Repository
 	public function findIdentityByValue($identity_value)
 	{
 		return $this->finder('Kieran\Identity:Identity')
-            ->where('identity_value', $identity_value)
+            ->where('identity_value', "$identity_value")
 			->where('status', '!=', 2)
             ->fetchOne();
 	}
@@ -45,7 +45,7 @@ class Identity extends Repository
 	public function findIdentityByValueByType($identity_value, $identity_type_id, $ignoreDeleted=true)
 	{
 		$finder = $this->finder('Kieran\Identity:Identity')
-            ->where('identity_value', $identity_value)
+            ->where('identity_value', "$identity_value")
             ->where('identity_type_id', '=', $identity_type_id);
 
 		if ($ignoreDeleted) {
@@ -81,7 +81,7 @@ class Identity extends Repository
 	{
 		return $this->finder('Kieran\Identity:Identity')
             ->where('identity_type_id', '=', $identity_type_id)
-            ->where('identity_value', $identity_value)
+            ->where('identity_value', "$identity_value")
 			->where('status', '!=', 2)
             ->fetchOne();
 	}
@@ -94,7 +94,7 @@ class Identity extends Repository
 			'user_id' => $user_id,
 			'identity_type_id' => $identity_type->identity_type_id,
 			'identity_name' => $identity_name,
-			'identity_value' => $identity_value,
+			'identity_value' => "$identity_value",
             'status' => $status
 		]);
 		$add->save();
